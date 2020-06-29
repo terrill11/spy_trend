@@ -1,0 +1,44 @@
+<script 
+    type="text/javascript">
+    window.siteData = {
+        htmlDirection: 'ltr',
+        decimalPoint: '.' || '.',
+        thousandSep: ',' || ',',
+        isEu : false,
+        userLoggedIn: false,
+        userHasPhoneRegistered: false,
+        currencyPosition: 'left',
+        datepicker: {
+            applyButton: 'Apply',
+            format: 'm/d/Y',
+            formatShort: 'm/d/y',
+            formatLong: 'm/d/Y',
+            formatSend: 'yy-mm-dd',
+            firstDay: '1',
+            dayNames: ["Su","Mo","Tu","We","Th","Fr","Sa"],
+            monthNamesShort: ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."],
+            monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            translations: {
+                custom: 'Custom dates',
+                start: 'Start Date',
+                end: 'End Date'
+            }
+        },
+        techTranslations: {"_Currencies_Strong_Buy":"Strong Buy","_Currencies_Strong_Sell":"Strong Sell","_specialBuy":"BUY","_specialSell":"Sell","_moving_avarge_tool_sell":"Sell","_moving_avarge_tool_buy":"Buy","_Currencies_Neutral":"Neutral","_not_available":"Not available","_Currencies_Less_Volatility":"Less Volatility","_Currencies_More_Volatility":"High Volatility","_Currencies_Overbought":"Overbought","_Currencies_Oversold":"Oversold"},
+        edition: $('html').attr('lang'),
+        domainID: '1',
+        appNexusUrl: 'https://secure.adnxs.com/seg?t=2&add=19833590',
+        pageType: ''
+    };
+
+    window.siteData.pageType = 'historical-data';
+
+    (function (pattern) {
+        window.siteData.elapsedTimePattern = pattern.is('false') ? null : $.extend(JSON.parse(pattern), { justNow: 'Just Now' });
+    })
+    ('{"minutes":{"X minute ago":[1],"X minutes ago":["2-59"]},"hours":{"X hour ago":[1],"X hours ago":["2-24"]}}');
+
+    window.siteData.smlID = 106748;
+    window.siteData.mmID = 24;
+    window.truncatedCommentShowMoreDefine = 'Show more';
+</script>
