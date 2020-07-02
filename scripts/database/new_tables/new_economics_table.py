@@ -21,30 +21,32 @@ conn = pyodbc.connect('Driver={FreeTDS};'
 
 cursor = conn.cursor()
 
-economics_pct_tickers = ['DGS10', 'DGS30', 'USD1MTD156N', 'USD6MTD156N', 'USD12MD156N', 'DFF', 'T10YIE', 
-                        'MORTGAGE15US', 'MORTGAGE30US', 'UNRATE']
+economics_pct_tickers = ['DGS10', 'DGS30', 'USD1MTD156N', 'USD6MTD156N', 'USD12MD156N', 
+                            'DFF', 'T10YIE', 'MORTGAGE15US', 'MORTGAGE30US', 'UNRATE']
 economics_bil_tickers = ['M1', 'M2']
 cpi = 'CPIAUCSL'
 
 # rates
-for ticker in economics_pct_tickers:
-    cursor.execute(f'''CREATE TABLE finance.dbo.{ticker} (
+for ticker in economics_pct_tickers[:1]:
+    query = f'''CREATE TABLE finance.dbo.{ticker} (
                             Date DATE,
-                            Rate DECIMAL
-                        )''').fetchall()
+                            Rate DECIMAL(5,4))'''
+    cursor.execute(query)
+    conn.commit()
+    print(f'{ticker} table added.')
 
-# M1 & M2
-for ticker in economics_bil_tickers:
-    cursor.execute(f'''CREATE TABLE finance.dbo.{ticker} (
-                            Date DATE,
-                            Dollars DECIMAL
-                        )''').fetchall()
+# # M1 & M2
+# for ticker in economics_bil_tickers:
+#     cursor.execute(f'''CREATE TABLE finance.dbo.{ticker} (
+#                             Date DATE,
+#                             Dollars DECIMAL
+#                         )''').fetchall()
 
-# CPI
-cursor.execute(f'''CREATE TABLE finance.dbo.{cpi} (
-                        Date DATE,
-                        Index DECIMAL
-                    )''').fetchall()
+# # CPI
+# cursor.execute(f'''CREATE TABLE finance.dbo.{cpi} (
+#                         Date DATE,
+#                         Index DECIMAL
+#                     )''').fetchall()
 
 conn.close()
 
