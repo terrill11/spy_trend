@@ -3,7 +3,7 @@
 import pyodbc
 import pandas
 
-with open('/Users/terrill/OneDrive/Documents/work/projects/spy/scripts/database/server_info.txt', 'r') as f:
+with open('/Users/terrill/Documents/work/stuff/spy_trend/server_info.txt', 'r') as f:
     line = f.readline().split(',')
 
 server_name = line[0]
