@@ -1,5 +1,9 @@
 #!/Users/terrill/OneDrive/Documents/work/projects/spy/venv_spy/bin/python
 
+import sys
+sys.path.append('/Users/terrill/OneDrive/Documents/work/projects/spy/scripts/')
+
+from database.sql_server_conn import connect_to_database
 from datetime import datetime
 from datetime import timedelta
 import pandas_datareader.data as web
@@ -9,22 +13,7 @@ import time
 
 
 # server connection setup
-with open('/Users/terrill/Documents/work/stuff/spy_trend/sql_server_info_futures.txt', 'r') as f:
-    line = f.readline().split(',')
-
-server_name = line[0]
-server_port = line[1]
-database_name = line[2]
-username = line[3]
-password = line[4]
-
-conn = pyodbc.connect('Driver={FreeTDS};'
-                      f'Server={server_name};'
-                      f'Port={server_port};'
-                      f'Database={database_name};'
-                      f'UID={username};'
-                      f'PWD={password}')
-cursor = conn.cursor()
+conn, cursor = connect_to_database('futures')
 
 
 futures_list = ['cl=f', 'gc=f', 'zn=f', 'zf=f']
