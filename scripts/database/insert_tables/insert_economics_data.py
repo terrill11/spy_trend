@@ -1,6 +1,9 @@
 #!/Users/terrill/OneDrive/Documents/work/projects/spy/venv_spy/bin/python
 
-from fred import Fred
+import sys
+sys.path.append('/Users/terrill/OneDrive/Documents/work/projects/spy/scripts/')
+
+from economics.fred import Fred
 from datetime import datetime as dt
 from datetime import timedelta
 import numpy as np
