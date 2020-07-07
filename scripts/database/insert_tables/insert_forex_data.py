@@ -72,4 +72,44 @@ for ticker in ticker_list:
     print(f'{ticker} saved')
     time.sleep(10)
 
+def get_dxy_historical_data():
+    url = 'https://www.investing.com/instruments/HistoricalDataAjax'
+    payload = {'header': 'US+Dollar+Index+Historical+Data',
+                'st_date': start_date,
+                'end_date': end_date,
+                'sort_col': 'date',
+                'action': 'historical_data',
+                'smlID': 2067751,
+                'sort_ord': 'DESC',
+                'interval_sec': 'Daily',
+                'curr_id': 942611
+                }
+    req = requests.post(url, headers=urlheader, data=payload)
+    soup = BeautifulSoup(req.content, "lxml")
+
+    table = soup.find('table', id="curr_table")
+    split_rows = table.find_all("tr")
+
+    data_rows = split_rows[:0:-1]
+
+    #columns = ['Date', 'Price', 'Open', 'High', 'Low', 'Change %']
+    for row in data_rows:
+        columns = list(row.stripped_strings)
+        columns = [column.replace(',','') for column in columns]
+        date = str(dt.strptime(columns[0], '%b %d %Y').strftime('%Y-%m-%d'))
+        close_price = float(columns[1])
+        open_price = float(columns[2])
+        high_price = float(columns[3])
+        low_price = float(columns[4])
+
+        query = f'''INSERT Forex.dbo.DXY (Date, ClosePrice, OpenPrice, HighPrice, LowPrice)
+                    VALUES (?,?,?,?,?)'''
+        cursor.execute(query, (date, close_price, open_price, high_price, low_price))
+    conn.commit()
+
+    print('DXY saved')
+
+get_dxy_historical_data()
+
+
 conn.close()

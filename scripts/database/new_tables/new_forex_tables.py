@@ -22,9 +22,10 @@ conn = pyodbc.connect('Driver={FreeTDS};'
 cursor = conn.cursor()
 
 forex_tickers = ['USD_JPY', 'USD_EUR', 'USD_CHF', 'USD_PLN', 'USD_CNY', 'USD_HUF', 'USD_RUB', 'USD_CAD',
-                'USD_RON', 'USD_INR', 'USD_GBP', 'USD_AUD', 'USD_HKD', 'USD_SEK', 'USD_SGD', 'XAU_USD']
+                'USD_RON', 'USD_INR', 'USD_GBP', 'USD_AUD', 'USD_HKD', 'USD_SEK', 'USD_SGD', 'XAU_USD',
+                'DXY']
 
-for ticker in forex_tickers:
+for ticker in forex_tickers[-1:]:
     query = f'''CREATE TABLE Forex.dbo.{ticker} (
                             Date DATE,
                             ClosePrice DECIMAL(14,4),
