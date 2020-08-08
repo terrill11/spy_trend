@@ -4,7 +4,7 @@ import sys
 sys.path.append('/Users/terrill/OneDrive/Documents/work/projects/spy/scripts/')
 
 from economics.fred import Fred
-from database.sql_server_conn import connect_to_database
+from database.sql_server_conn import Database
 from datetime import datetime
 from datetime import timedelta
 import numpy as np
@@ -14,7 +14,7 @@ import time
 
 
 # server connection setup
-conn, cursor = connect_to_database('economics')
+economics_db = Database('economics')
 
 # api setup
 api_key_path = '/Users/terrill/Documents/work/stuff/spy_trend/fred_api_key.txt'
@@ -31,11 +31,7 @@ series_ids_regs = ['M1', 'M2', 'CPIAUCSL']
 
 
 for series_id in series_ids_pct:
-    get_last_entry = f'''SELECT top 1 *
-                        FROM Economics.dbo.{series_id} with(nolock)
-                        order by date desc'''
-    last_entry_df = pd.read_sql(get_last_entry, conn)
-    latest_entry = str(last_entry_df['Date'].values[0])
+    latest_entry = economics_db.get_latest_entry(series_id)
 
     data = fred.get_series(series_id, observation_start=start_date, observation_end=end_date)
     data /= 100
@@ -46,18 +42,14 @@ for series_id in series_ids_pct:
             value = None
         query = f'''INSERT Economics.dbo.{series_id} (Date, Rate)
                             VALUES (?,?)'''
-        cursor.execute(query, (index, value))
-    conn.commit()
+        economics_db.cursor.execute(query, (index, value))
+    economics_db.conn.commit()
 
     print(f'{series_id} table updated.')
     time.sleep(10)
 
 for series_id in series_ids_regs:
-    get_last_entry = f'''SELECT top 1 *
-                        FROM Economics.dbo.{series_id} with(nolock)
-                        order by date desc'''
-    last_entry_df = pd.read_sql(get_last_entry, conn)
-    latest_entry = str(last_entry_df['Date'].values[0])
+    latest_entry = economics_db.get_latest_entry(series_id)
 
     data = fred.get_series(series_id, observation_start=start_date, observation_end=end_date)
     data = data[data.index > latest_entry]
@@ -67,9 +59,10 @@ for series_id in series_ids_regs:
             value = None
         query = f'''INSERT Economics.dbo.{series_id} (Date, Value)
                             VALUES (?,?)'''
-        cursor.execute(query, (index, value))
-    conn.commit()
+        economics_db.cursor.execute(query, (index, value))
+    economics_db.conn.commit()
+    
     print(f'{series_id} table updated.')
     time.sleep(10)
 
-conn.close()
+economics_db.conn.close()
