@@ -40,7 +40,7 @@ for series_id in series_ids_pct:
     for index, value in data.iteritems():
         if pd.isna(value):
             value = None
-        query = f'''INSERT Economics.dbo.{series_id} (Date, Rate)
+        query = f'''INSERT {economics_db.database_name}.dbo.{series_id} (Date, Rate)
                             VALUES (?,?)'''
         economics_db.cursor.execute(query, (index, value))
     economics_db.conn.commit()
@@ -57,7 +57,7 @@ for series_id in series_ids_regs:
     for index, value in data.iteritems():
         if pd.isna(value):
             value = None
-        query = f'''INSERT Economics.dbo.{series_id} (Date, Value)
+        query = f'''INSERT {economics_db.database_name}.dbo.{series_id} (Date, Value)
                             VALUES (?,?)'''
         economics_db.cursor.execute(query, (index, value))
     economics_db.conn.commit()

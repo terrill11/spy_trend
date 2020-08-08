@@ -42,7 +42,7 @@ for ticker in equities_list:
     data_to_insert = yahoo.get_last_x_days_data(ticker, latest_entry, days_to_look_back)
 
     for index, row in data_to_insert.iterrows():
-        query = f'''INSERT Equities.dbo.{sql_ticker} (Date, HighPrice, LowPrice, OpenPrice, ClosePrice, Volume)
+        query = f'''INSERT {equities_db.database_name}.dbo.{sql_ticker} (Date, HighPrice, LowPrice, OpenPrice, ClosePrice, Volume)
                         VALUES (?,?,?,?,?,?)'''
         equities_db.cursor.execute(query, (index.date(), row['High'], row['Low'], row['Open'], row['Adj Close'], row['Volume']))
     equities_db.conn.commit()
@@ -59,7 +59,7 @@ for ticker in bonds_list:
 
     for index, row in data_to_insert.iterrows():
         row *= 10
-        query = f'''INSERT Equities.dbo.{sql_ticker} (Date, HighPrice, LowPrice, OpenPrice, ClosePrice)
+        query = f'''INSERT {equities_db.database_name}.dbo.{sql_ticker} (Date, HighPrice, LowPrice, OpenPrice, ClosePrice)
                         VALUES (?,?,?,?,?)'''
         equities_db.cursor.execute(query, (index.date(), row['High'], row['Low'], row['Open'], row['Adj Close']))
     equities_db.conn.commit()
@@ -75,7 +75,7 @@ for ticker in vix_list:
     data_to_insert = yahoo.get_last_x_days_data(ticker, latest_entry, days_to_look_back)
 
     for index, row in data_to_insert.iterrows():
-        query = f'''INSERT Equities.dbo.{sql_ticker} (Date, HighPrice, LowPrice, OpenPrice, ClosePrice)
+        query = f'''INSERT {equities_db.database_name}.dbo.{sql_ticker} (Date, HighPrice, LowPrice, OpenPrice, ClosePrice)
                         VALUES (?,?,?,?,?)'''
         equities_db.cursor.execute(query, (index.date(), row['High'], row['Low'], row['Open'], row['Adj Close']))
     equities_db.conn.commit()
