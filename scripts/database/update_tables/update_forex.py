@@ -4,7 +4,7 @@ import sys
 sys.path.append('/Users/terrill/OneDrive/Documents/work/projects/spy/scripts/')
 
 from forex.forex_scraper import Forex
-from database.sql_server_conn import Database
+from database.database_conn import Database
 from bs4 import BeautifulSoup
 from datetime import datetime
 from datetime import timedelta

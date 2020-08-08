@@ -4,7 +4,7 @@ import sys
 sys.path.append('/Users/terrill/OneDrive/Documents/work/projects/spy/scripts/')
 
 from equities.yahoo_scraper import Yahoo
-from database.sql_server_conn import Database
+from database.database_conn import Database
 from datetime import datetime
 from datetime import timedelta
 import pandas as pd

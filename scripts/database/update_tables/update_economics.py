@@ -4,7 +4,7 @@ import sys
 sys.path.append('/Users/terrill/OneDrive/Documents/work/projects/spy/scripts/')
 
 from economics.fred import Fred
-from database.sql_server_conn import Database
+from database.database_conn import Database
 from datetime import datetime
 from datetime import timedelta
 import numpy as np
