@@ -31,3 +31,11 @@ class Database():
         latest_entry = str(last_entry_df['Date'].values[0])
 
         return latest_entry
+
+    def create_table(self, ticker, query):
+        self.cursor.execute(query)
+        self.conn.commit()
+        print(f'{ticker} table added.')
+
+    def insert_data(self, query, data):
+        self.cursor.execute(query, data)
