@@ -39,3 +39,6 @@ class Database():
 
     def insert_data(self, query, data):
         self.cursor.execute(query, data)
+
+    def query_to_df(self, query):
+        return pd.read_sql(query, self.conn)
