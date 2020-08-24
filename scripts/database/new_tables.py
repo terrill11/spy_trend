@@ -24,14 +24,13 @@ equity_tickers = ['SPY', 'QQQ', 'IWM', 'VTI', 'USO', 'GLD', 'SLV', 'DBO', 'UUP',
                     'VNQ', 'VGT', 'VHT', 'VFH', 'VCR', 'VIS', 'VDC', 'VPU', 'VDE', 'VAW', 'VOX']    # vanguard industry funds
 index_tickers = ['I_RUT', 'I_DJI', 'I_IXIC', 'I_GSPC']
 bond_tickers = ['B_TYX', 'B_TNX']
-vix_tickers = ['I_VIX']
+vix_tickers = ['I_VIX', 'I_VVIX', 'I_VXN']
 new_equity_tickers = []
-
 
 # ECONOMICS
 economics_pct_tickers = ['DGS10', 'DGS30', 'USD1MTD156N', 'USD6MTD156N', 'USD12MD156N', 
                             'DFF', 'T10YIE', 'MORTGAGE15US', 'MORTGAGE30US', 'UNRATE']
-economics_bil_tickers = ['M1', 'M2', 'CPIAUCSL']
+economics_no_tickers = ['M1', 'M2', 'BOGMBBMW', 'CPIAUCSL', 'WIMFSL', 'DTWEXBGS', 'GOLDAMGBD228NLBM']
 new_economics_tickers = []
 
 # FOREX
@@ -62,17 +61,13 @@ def create_tables_equities_all():
         query = create_table_queries.create_table_equities(ticker)
         equities_db.create_table(ticker, query)
 
-    for ticker in new_equitiy_tickers:
-        query = create_table_queries.create_table_equities(ticker)
-        equities_db.create_table(ticker, query)
-
 # ECONOMICS
 def create_tables_economics_all():
-    for ticker in economics_pct_tickers:
-        query = create_table_queries.create_table_economics_rate(ticker)
-        economics_db.create_table(ticker, query)
+    # for ticker in economics_pct_tickers:
+    #     query = create_table_queries.create_table_economics_rate(ticker)
+    #     economics_db.create_table(ticker, query)
 
-    for ticker in economics_bil_tickers:
+    for ticker in new_economics_tickers:#economics_no_tickers:
         query = create_table_queries.create_table_economics_value(ticker)
         economics_db.create_table(ticker, query)
 
@@ -87,6 +82,7 @@ def create_tables_futures_all():
     for ticker in futures_list:
         query = create_table_queries.create_table_futures(ticker)
         futures_db.create_table(ticker, query)
+
 
 # create_tables_equities_all()
 # create_tables_economics_all()

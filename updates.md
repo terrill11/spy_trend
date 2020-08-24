@@ -57,3 +57,11 @@
 
 ### 08/20
 - Uploaded updates.md
+
+### 8/23
+- Database
+    - Added following tables
+    - equities - VVIX (volatility of VIX)
+    - equities - VXN (volatility of Nasdaq 100) tickers
+    - economics - DTWEXBGS (Traded weighted US dollar index)
+    - economics - GOLDAMGBD228NLBM (Gold fixing price)

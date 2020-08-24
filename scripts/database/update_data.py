@@ -3,7 +3,6 @@
 import sys
 sys.path.append('/Users/terrill/OneDrive/Documents/work/projects/spy/scripts/')
 
-
 from database.Database import Database
 from database.QueriesUpdateTable import QueriesUpdateTable
 from equities.YahooScraper import Yahoo
@@ -37,7 +36,7 @@ investing = InvestingScraper()
 
 
 # change this to approximate the last time table was updated
-days_to_look_back = 60
+days_to_look_back = 30
 start_date = datetime.now().date() - timedelta(days = days_to_look_back)
 end_date = datetime.now().date() - timedelta(days = 1)
 
@@ -52,12 +51,12 @@ equities_list = ['SPY', 'QQQ', 'IWM', 'VTI',                                    
                 '^RUT', '^DJI', '^IXIC', '^GSPC']                                               # indexes
 # no volumn columns
 bonds_list = ['^TYX', '^TNX']     # bonds/treasuries, need to x10 all data
-vix_list = ['^VIX']
+vix_list = ['^VIX', '^VVIX', '^VXN']
 
 # ECONOMICS
 series_ids_pct = ['DGS10', 'DGS30', 'USD1MTD156N', 'USD6MTD156N', 'USD12MD156N', 
                     'DFF', 'T10YIE', 'MORTGAGE15US', 'MORTGAGE30US', 'UNRATE']
-series_ids_regs = ['M1', 'M2', 'CPIAUCSL']
+series_ids_regs = ['M1', 'M2', 'BOGMBBMW', 'CPIAUCSL', 'WIMFSL', 'DTWEXBGS', 'GOLDAMGBD228NLBM']
 
 # FOREX
 forex_ticker_list = investing.get_ticker_list('forex')
@@ -132,7 +131,7 @@ def update_tables_economics():
             query = update_table_queries.insert_data_economics_rates(series_id)
             data = (index, value)
             economics_db.insert_data(query, data)
-        # economics_db.conn.commit()
+        economics_db.conn.commit()
 
         print_results(series_id)
 
@@ -171,7 +170,6 @@ def update_tables_forex():
         forex_db.conn.commit()
 
         print_results(ticker)
-        break
 
     # DXY
     def get_dxy_historical_data():
@@ -233,9 +231,9 @@ def update_tables_dix():
 print('Running updates now.')
 # update_tables_equities()
 # update_tables_economics()
-# update_tables_forex()
+update_tables_forex()
 # update_tables_futures()
-# print(update_tables_dix())
+# update_tables_dix()
 
 
 equities_db.conn.close()

@@ -3,7 +3,6 @@
 import sys
 sys.path.append('/Users/terrill/OneDrive/Documents/work/projects/spy/scripts/')
 
-
 from database.Database import Database
 from database.QueriesUpdateTable import QueriesUpdateTable
 from equities.YahooScraper import Yahoo
@@ -46,12 +45,14 @@ equities_list = ['SPY', 'QQQ', 'IWM', 'VTI',                                    
                 '^RUT', '^DJI', '^IXIC', '^GSPC']                                               # indexes
 # no volumn columns
 bonds_list = ['^TYX', '^TNX']     # bonds/treasuries, need to x10 all data
-vix_list = ['^VIX']
+vix_list = ['^VIX', '^VVIX', '^VXN']
+new_vix_list = []
 
 # ECONOMICS
 series_ids_pct = ['DGS10', 'DGS30', 'USD1MTD156N', 'USD6MTD156N', 'USD12MD156N', 
                     'DFF', 'T10YIE', 'MORTGAGE15US', 'MORTGAGE30US', 'UNRATE']
-series_ids_regs = ['M1', 'M2', 'CPIAUCSL']
+series_ids_regs = ['M1', 'M2', 'BOGMBBMW', 'CPIAUCSL', 'WIMFSL', 'DTWEXBGS', 'GOLDAMGBD228NLBM']
+new_series_ids = []
 
 # FOREX
 forex_ticker_list = investing.get_ticker_list('forex')
@@ -88,7 +89,7 @@ def insert_data_equities():
 
         for index, row in df.iterrows():
             row *= 10
-            query = insert_data_equities_bonds(sql_ticker)
+            query = update_table_queries.insert_data_equities_bonds(sql_ticker)
             data = (index.date(), row['High'], row['Low'], row['Open'], row['Adj Close'])
             equities_db.insert_data(query, data)
         equities_db.conn.commit()
@@ -100,7 +101,7 @@ def insert_data_equities():
         df = yahoo.get_all_data(ticker)
 
         for index, row in df.iterrows():
-            query = insert_data_equities_vix(sql_ticker)
+            query = update_table_queries.insert_data_equities_vix(sql_ticker)
             data = (index.date(), row['High'], row['Low'], row['Open'], row['Adj Close'])
             equities_db.insert_data(query, data)
         equities_db.conn.commit()
@@ -125,7 +126,7 @@ def insert_data_economics():
 
         print_results(series_id)
 
-    for series_id in series_ids_regs:
+    for series_id in new_series_ids:#series_ids_regs:
         data = fred.get_series(series_id, observation_start=start_date, observation_end=end_date)
 
         for index, value in data.iteritems():
