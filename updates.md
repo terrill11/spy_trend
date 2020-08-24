@@ -65,3 +65,4 @@
     - equities - VXN (volatility of Nasdaq 100) tickers
     - economics - DTWEXBGS (Traded weighted US dollar index)
     - economics - GOLDAMGBD228NLBM (Gold fixing price)
+    - updated data
