@@ -73,3 +73,7 @@
     - adding individual S&P-500 tickers
 - Database
     - added TIP etf
+
+### 8/25
+- 30-day forecast with equities indicator
+    - setting up ETFs, VIX, DIX data
