@@ -66,3 +66,8 @@
     - economics - DTWEXBGS (Traded weighted US dollar index)
     - economics - GOLDAMGBD228NLBM (Gold fixing price)
     - updated data
+
+### 8/24
+- 30-day forecast with equities indicator
+    - preparing data
+    - adding individual S&P-500 tickers
