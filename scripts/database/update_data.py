@@ -45,7 +45,7 @@ end_date = datetime.now().date() - timedelta(days = 1)
 # EQUITIES
 equities_list = ['SPY', 'QQQ', 'IWM', 'VTI',                                                    # index etfs
                 'GLD', 'SLV', 'USO', 'DBO', 'UUP',                                              # futures etfs
-                'TLT', 'IEF', 'SHY', 'BND',                                                     # bond etfs
+                'TLT', 'IEF', 'SHY', 'BND', 'TIP'                                               # bond etfs
                 'XLRE', 'XLK', 'XLV', 'XLF', 'XLY', 'XLI', 'XLP', 'XLU', 'XLE', 'XLB', 'XLC',   # SPDR industry funds
                 'VNQ', 'VGT', 'VHT', 'VFH', 'VCR', 'VIS', 'VDC', 'VPU', 'VDE', 'VAW', 'VOX',    # vanguard industry funds
                 '^RUT', '^DJI', '^IXIC', '^GSPC']                                               # indexes

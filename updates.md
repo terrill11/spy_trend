@@ -71,3 +71,5 @@
 - 30-day forecast with equities indicator
     - preparing data
     - adding individual S&P-500 tickers
+- Database
+    - added TIP etf

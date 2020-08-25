@@ -39,10 +39,11 @@ investing = InvestingScraper()
 # EQUITIES
 equities_list = ['SPY', 'QQQ', 'IWM', 'VTI',                                                    # index etfs
                 'GLD', 'SLV', 'USO', 'DBO', 'UUP',                                              # futures etfs
-                'TLT', 'IEF', 'SHY', 'BND',                                                     # bond etfs
+                'TLT', 'IEF', 'SHY', 'BND', 'TIP'                                               # bond etfs
                 'XLRE', 'XLK', 'XLV', 'XLF', 'XLY', 'XLI', 'XLP', 'XLU', 'XLE', 'XLB', 'XLC',   # SPDR industry funds
                 'VNQ', 'VGT', 'VHT', 'VFH', 'VCR', 'VIS', 'VDC', 'VPU', 'VDE', 'VAW', 'VOX',    # vanguard industry funds
                 '^RUT', '^DJI', '^IXIC', '^GSPC']                                               # indexes
+new_equities_list = []
 # no volumn columns
 bonds_list = ['^TYX', '^TNX']     # bonds/treasuries, need to x10 all data
 vix_list = ['^VIX', '^VVIX', '^VXN']
@@ -67,7 +68,7 @@ def print_results(ticker):
     time.sleep(10)
 
 def insert_data_equities():
-    for ticker in equities_list:
+    for ticker in new_equities_list:
         if '^' in ticker:
             sql_ticker = ticker.replace('^','I_')
         else:
@@ -83,30 +84,30 @@ def insert_data_equities():
 
         print_results(ticker)
 
-    for ticker in bonds_list:
-        sql_ticker = ticker.replace('^', 'B_')
-        df = yahoo.get_all_data(ticker)
+    # for ticker in bonds_list:
+    #     sql_ticker = ticker.replace('^', 'B_')
+    #     df = yahoo.get_all_data(ticker)
 
-        for index, row in df.iterrows():
-            row *= 10
-            query = update_table_queries.insert_data_equities_bonds(sql_ticker)
-            data = (index.date(), row['High'], row['Low'], row['Open'], row['Adj Close'])
-            equities_db.insert_data(query, data)
-        equities_db.conn.commit()
+    #     for index, row in df.iterrows():
+    #         row *= 10
+    #         query = update_table_queries.insert_data_equities_bonds(sql_ticker)
+    #         data = (index.date(), row['High'], row['Low'], row['Open'], row['Adj Close'])
+    #         equities_db.insert_data(query, data)
+    #     equities_db.conn.commit()
 
-        print_results(ticker)
+    #     print_results(ticker)
 
-    for ticker in vix_list:
-        sql_ticker = ticker.replace('^', 'I_')
-        df = yahoo.get_all_data(ticker)
+    # for ticker in vix_list:
+    #     sql_ticker = ticker.replace('^', 'I_')
+    #     df = yahoo.get_all_data(ticker)
 
-        for index, row in df.iterrows():
-            query = update_table_queries.insert_data_equities_vix(sql_ticker)
-            data = (index.date(), row['High'], row['Low'], row['Open'], row['Adj Close'])
-            equities_db.insert_data(query, data)
-        equities_db.conn.commit()
+    #     for index, row in df.iterrows():
+    #         query = update_table_queries.insert_data_equities_vix(sql_ticker)
+    #         data = (index.date(), row['High'], row['Low'], row['Open'], row['Adj Close'])
+    #         equities_db.insert_data(query, data)
+    #     equities_db.conn.commit()
         
-        print_results(ticker)
+    #     print_results(ticker)
 
 def insert_data_economics():
     start_date = '1900-01-01'
@@ -218,7 +219,7 @@ def insert_data_dix():
 
 
 print('Running updates now.')
-# insert_data_equities()
+insert_data_equities()
 # insert_data_economics()
 # insert_data_forex()
 # insert_data_futures()

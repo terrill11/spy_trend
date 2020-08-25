@@ -19,7 +19,7 @@ create_table_queries = QueriesCreateTable()
 
 # EQUITIES
 equity_tickers = ['SPY', 'QQQ', 'IWM', 'VTI', 'USO', 'GLD', 'SLV', 'DBO', 'UUP',                    # etfs
-                    'TLT', 'IEF', 'SHY', 'BND',                                                     # bond etfs
+                    'TLT', 'IEF', 'SHY', 'BND', 'TIP'                                               # bond etfs
                     'XLRE', 'XLK', 'XLV', 'XLF', 'XLY', 'XLI', 'XLP', 'XLU', 'XLE', 'XLB', 'XLC',   # SPDR industry funds
                     'VNQ', 'VGT', 'VHT', 'VFH', 'VCR', 'VIS', 'VDC', 'VPU', 'VDE', 'VAW', 'VOX']    # vanguard industry funds
 index_tickers = ['I_RUT', 'I_DJI', 'I_IXIC', 'I_GSPC']
@@ -45,21 +45,21 @@ futures_list = ['Crude_Oil_WTI', 'Brent_Oil', 'Natural_Gas']
 
 # EQUITIES
 def create_tables_equities_all():
-    for ticker in equity_tickers:
+    for ticker in new_equity_tickers:
         query = create_table_queries.create_table_equities(ticker)
         equities_db.create_table(ticker, query)
         
-    for ticker in index_tickers:
-        query = create_table_queries.create_table_equities(ticker)
-        equities_db.create_table(ticker, query)
+    # for ticker in index_tickers:
+    #     query = create_table_queries.create_table_equities(ticker)
+    #     equities_db.create_table(ticker, query)
 
-    for ticker in bond_tickers:
-        query = create_table_queries.create_table_equities(ticker)
-        equities_db.create_table(ticker, query)
+    # for ticker in bond_tickers:
+    #     query = create_table_queries.create_table_equities(ticker)
+    #     equities_db.create_table(ticker, query)
 
-    for ticker in vix_tickers:
-        query = create_table_queries.create_table_equities(ticker)
-        equities_db.create_table(ticker, query)
+    # for ticker in vix_tickers:
+    #     query = create_table_queries.create_table_equities(ticker)
+    #     equities_db.create_table(ticker, query)
 
 # ECONOMICS
 def create_tables_economics_all():
@@ -84,7 +84,7 @@ def create_tables_futures_all():
         futures_db.create_table(ticker, query)
 
 
-# create_tables_equities_all()
+create_tables_equities_all()
 # create_tables_economics_all()
 # create_tables_forex_all()
 # create_tables_futures_all()
