@@ -77,3 +77,7 @@
 ### 8/25
 - 30-day forecast with equities indicator
     - setting up ETFs, VIX, DIX data
+
+### 8/27
+- 30-day forecast with equities indicator
+    - more setting up and cleaning
