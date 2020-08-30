@@ -81,3 +81,7 @@
 ### 8/27
 - 30-day forecast with equities indicator
     - more setting up and cleaning
+
+### 8/29
+- 30-day forecast with equities indicator
+    - cleaning scaling process
