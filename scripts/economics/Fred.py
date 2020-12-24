@@ -1,9 +1,10 @@
-#!/Users/terrill/OneDrive/Documents/work/projects/spy/venv_spy/bin/python
+#!/Users/terrill/Documents/work/python_virtual_environments/venv_spy/bin/python
 
 from datetime import datetime as dt
 import numpy as np
 import pandas as pd
 import requests
+import settings
 import urllib.request as url_request
 import xml.etree.ElementTree as ET
 import os
@@ -21,8 +22,7 @@ class Fred():
         if api_key is not None:
             self.api_key = api_key
         elif api_key_path is not None:
-            with open(api_key_path, 'r') as f:
-                self.api_key = f.readline()
+            self.api_key = settings.fred_api_key()
         else:
             return 'Missing API key. Sign up for a free account at http://research.stlouisfed.org/fred2/'
 
@@ -56,7 +56,7 @@ class Fred():
 
         if root is None or not len(root):
             raise ValueError('No info exists for series id: ' + series_id)
-        info = pd.Series(root.getchildren()[0].attrib)
+        info = pd.Series(list(root)[0].attrib)
         return info
 
     def get_series(self, series_id, observation_start=None, observation_end=None, **kwargs):
@@ -84,7 +84,7 @@ class Fred():
             raise ValueError(f'No data exists for {series_id}')
 
         data = {}
-        for child in root.getchildren():
+        for child in list(root):
             val = child.get('value')
 
             if val == self.nan_char:

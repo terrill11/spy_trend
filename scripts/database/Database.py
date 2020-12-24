@@ -1,17 +1,18 @@
-#!/Users/terrill/OneDrive/Documents/work/projects/spy/venv_spy/bin/python
+#!/Users/terrill/Documents/work/python_virtual_environments/venv_spy/bin/python
 
 import pandas as pd
 import pyodbc
+import settings
 
 class Database():
     def __init__(self, database_name):
-        with open(f'/Users/terrill/Documents/work/stuff/spy_trend/sql_server_info_{database_name}.txt', 'r') as f:
-            line = f.readline().split(',')
-        server_name = line[0]
-        server_port = line[1]
-        database_name = line[2]
-        username = line[3]
-        password = line[4]
+        sql_server = settings.server_creds(database_name)
+
+        server_name = sql_server['Server']
+        server_port = sql_server['Port']
+        database_name = sql_server['Database']
+        username = sql_server['UID']
+        password = sql_server['PWD']
 
         self.conn = pyodbc.connect('Driver={FreeTDS};'
                                 f'Server={server_name};'
