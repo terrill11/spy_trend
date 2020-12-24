@@ -93,3 +93,4 @@
 ### 12/24
 - updates to accessing server credentials
 - fixed depreciated method in Fred
+- switch to ssh auth
