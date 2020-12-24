@@ -89,3 +89,7 @@
 ### 9/3
 - 30-day forecast with equities indicator
     - setting up model and plotting functions
+
+### 12/24
+- updates to accessing server credentials
+- fixed depreciated method in Fred
