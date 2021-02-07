@@ -94,3 +94,6 @@
 - updates to accessing server credentials
 - fixed depreciated method in Fred
 - switch to ssh auth
+
+### 02/07/2021
+- test
